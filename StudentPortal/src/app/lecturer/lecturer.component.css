@@ -1,0 +1,13 @@
+.heading{
+    text-align: center;
+    padding-bottom: 20px;
+    padding-top: 30px;
+}
+.heading h3{
+    font-weight: bold;
+    font-size: 50px;
+}
+.row{
+    padding-left: 100px;
+    margin-top: 50px;
+}
