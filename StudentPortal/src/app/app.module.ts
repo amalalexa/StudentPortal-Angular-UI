@@ -8,20 +8,26 @@ import { MatComponentsModule} from './mat-components/mat-components.module';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { LecturerService } from './service/lecturer.service';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { ListDegreeComponent } from './lecturer/list-degree/list-degree.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { StudentFormComponent } from './lecturer/student-form/student-form.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     LecturerComponent,
-    ListStudentsComponent
+    ListStudentsComponent,
+    ListDegreeComponent,
+    StudentFormComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NoopAnimationsModule,
     MatComponentsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgbModule
   ],
   providers: [LecturerService],
   bootstrap: [AppComponent]

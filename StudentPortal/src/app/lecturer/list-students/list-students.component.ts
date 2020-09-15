@@ -1,6 +1,6 @@
+import { OutStudentList } from './../../view/OutputStudentList';
 import { LecturerService } from './../../service/lecturer.service';
 import { Component, OnInit, Input } from '@angular/core';
-import { LecturerIdView } from 'src/app/view/LecturerIdView';
 
 
 @Component({
@@ -10,20 +10,24 @@ import { LecturerIdView } from 'src/app/view/LecturerIdView';
 })
 export class ListStudentsComponent implements OnInit {
 
-  private viewObject:LecturerIdView;
-  constructor(private lecturerService?:LecturerService) {
-    this.viewObject=new LecturerIdView();
+  studentsList$:OutStudentList;
+  displayedColumns: string[] = ['Student Name', 'Degree Name'];
+  temp$:any;
+  constructor(private lecturerService:LecturerService) {
    }
 
   ngOnInit(): void {
+    this.lecturerService.getListOfStudents(this.lecturerId).subscribe(response =>{
+      this.temp$=JSON.stringify(response);
+      this.studentsList$=JSON.parse(this.temp$);
+    },
+    error => {
+      console.log(error);
+    });
   }
 
   @Input("lecturerId") lecturerId :  String;
-
-  listStudent(){
-    this.viewObject.lecturerId=this.lecturerId;
-    this.lecturerService.getListOfStudents(this.viewObject);
-  }
+ 
 }
 
 

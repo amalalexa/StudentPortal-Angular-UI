@@ -1,28 +1,34 @@
+import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { LecturerIdView } from '../view/LecturerIdView';
 import { environment } from '../../environments/environment';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class LecturerService {
 
   constructor(private http:HttpClient) { }
 
-  getListOfStudents(lecturerId:LecturerIdView){
+  getListOfStudents(lecturerId:String){
 
-    let headers = new HttpHeaders().set("Content-Type",'application/json').set("lecturerId",lecturerId.lecturerId as string)
+    let headers = new HttpHeaders().set("lecturerId",lecturerId as string);
 
-    return this.http.get(environment.apiUrl+"/lecturer/students", {headers:headers})
-                    .subscribe(response => {
-                      console.log(response);
+    return this.http.get(environment.apiUrl+"/lecturer/students", {headers:headers});
 
-                    },
-                    error =>{
-                      console.log(error);
-                    });
+  }
+
+  getListOfDegrees(lecturerId:String){
+
+    let headers = new HttpHeaders().set("lecturerId",lecturerId as string);
+
+    return this.http.get(environment.apiUrl+"/lecturer/degrees", {headers:headers});
+
+  }
+
+  getListOfCourses(degreeId:String){
+
+    let headers = new HttpHeaders().set("degreeId",degreeId as string);
+
+    return this.http.get(environment.apiUrl+"/lecturer/degree/courses", {headers:headers});
 
   }
 

@@ -2,9 +2,9 @@
     <h3>Lecturer's Profile</h3>
 </div>
 
-<div class="row">
+<div class="row center">
     <mat-accordion>
-        <mat-expansion-panel (click)="callFunction()">
+        <mat-expansion-panel>
           <mat-expansion-panel-header>
             <mat-panel-title>
               List of Students
@@ -13,7 +13,7 @@
                 All students associated with the lecturer !!!
             </mat-panel-description>
           </mat-expansion-panel-header>
-          <list-students [lecturerId]="lecturerId" ></list-students>
+          <list-students [lecturerId]="lecturerId"></list-students>
         </mat-expansion-panel>
         <mat-expansion-panel >
           <mat-expansion-panel-header>
@@ -24,9 +24,12 @@
               All degree's which the lecturer is responsible for !!!
             </mat-panel-description>
           </mat-expansion-panel-header>
-          <p>I'm visible because I am open</p>
+          <list-degree  [lecturerId]="lecturerId"></list-degree>
         </mat-expansion-panel>
-      </mat-accordion>      
+      </mat-accordion> 
+      
+      
+      <button mat-raised-button color="primary" (click)="openStudentForm()">Add Student</button>
 </div>
 
 

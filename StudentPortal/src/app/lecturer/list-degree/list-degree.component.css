@@ -1,0 +1,13 @@
+table{
+    width: 100%;
+    height: max-content;
+}
+
+.dropdown .show{
+    z-index: 1 !important;
+    position: fixed !important;
+    top: 50% !important;
+    display: inline-block !important;;
+    width: auto;
+    left: 67% !important;
+}

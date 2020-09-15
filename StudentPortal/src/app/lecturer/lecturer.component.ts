@@ -1,5 +1,8 @@
+import { MatDialog } from '@angular/material/dialog';
 import { ListStudentsComponent } from './list-students/list-students.component';
 import { Component, OnInit } from '@angular/core';
+import { LecturerService } from '../service/lecturer.service';
+import { StudentFormComponent } from './student-form/student-form.component';
 
 
 @Component({
@@ -10,17 +13,27 @@ import { Component, OnInit } from '@angular/core';
 export class LecturerComponent implements OnInit {
 
   private listStudentComponent:ListStudentsComponent
-  constructor() { 
+  constructor(private lecturerService:LecturerService, private dialog:MatDialog) { 
   }
 
   ngOnInit(): void {
-    this.listStudentComponent=new ListStudentsComponent();
+    this.listStudentComponent=new ListStudentsComponent(this.lecturerService);
   }
 
   lecturerId:String = "L-1";
+
+  show:boolean = false;
   
-  callFunction()
-  {
-    this.listStudentComponent.listStudent();
+  openStudentForm(){
+
+    const dialogRef = this.dialog.open(StudentFormComponent);
+
+    dialogRef.afterClosed().subscribe(result=>{
+      console.log("The form is closed !!!");
+    });
+    
+
   }
+  
+  
 }

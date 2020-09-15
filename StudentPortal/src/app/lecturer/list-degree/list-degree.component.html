@@ -1,0 +1,41 @@
+<table mat-table [dataSource]="degreeLists$" matSort class="mat-elevation-z8">
+  
+    <ng-container matColumnDef="Degree Name">
+      <th style="text-align:center" mat-header-cell *matHeaderCellDef mat-sort-header> Degree Name </th>
+      <td style="text-align:center" mat-cell *matCellDef="let element"> {{element.degreeName}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="Degree Duration(Years)">
+      <th style="text-align:center" mat-header-cell *matHeaderCellDef> Degree Duration(Years) </th>
+      <td style="text-align:center" mat-cell *matCellDef="let element">{{ element.degreeDurationInYears }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="Courses">
+      <th style="text-align:center" mat-header-cell *matHeaderCellDef> Courses </th>
+      <td mat-cell *matCellDef="let element">
+          <div ngbDropdown placement="left" style="text-align:center">
+            <button class="btn btn-primary" id="dropdownBasic2" ngbDropdownToggle (click)="getCourseList(element.degreeId)">Click here !!</button>
+            <table mat-table [dataSource]="courseList$" ngbDropdownMenu  matSort class="mat-elevation-z8 pos">
+              <ng-container matColumnDef="Course Name">
+                <th  mat-header-cell *matHeaderCellDef mat-sort-header> Course Name </th>
+                <td style="text-align:center" mat-cell *matCellDef="let element"> {{element.courseName}} </td>
+              </ng-container>
+            
+              <ng-container matColumnDef="Course Duration(Months)">
+                <th  mat-header-cell *matHeaderCellDef> Course Duration(Months) </th>
+                <td style="text-align:center" mat-cell *matCellDef="let element">{{ element.courseDurationInMonths }}</td>
+              </ng-container>
+
+              <tr mat-header-row class="pre" *matHeaderRowDef="displayedInnerColumns"></tr>
+              <tr mat-row class="pre" *matRowDef="let row; columns: displayedInnerColumns;"></tr>
+            </table>
+          </div>  
+      </td>
+    </ng-container>
+
+    <tr mat-header-row class="pre" *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row class="pre" *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+
+  
