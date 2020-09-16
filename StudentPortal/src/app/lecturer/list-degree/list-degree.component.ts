@@ -39,7 +39,6 @@ export class ListDegreeComponent implements OnInit {
     this.lecturerService.getListOfCourses(degreeId)
                         .subscribe(response=>{
                           this.courseList$=JSON.parse(JSON.stringify(response));
-                          console.log(this.courseList$);
                         },
                         error=>{
                           console.log(error);

@@ -1,0 +1,12 @@
+form{
+    width: 250px;
+    height: fit-content;
+}
+mat-form-field{
+    width: 100%;
+}
+.heading{
+    text-align: center; 
+    padding-bottom: 10px;
+    font-weight: bold;
+}

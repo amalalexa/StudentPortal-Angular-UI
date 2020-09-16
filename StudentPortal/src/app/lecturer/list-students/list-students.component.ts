@@ -10,6 +10,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class ListStudentsComponent implements OnInit {
 
+  @Input("lecturerId") lecturerId :  String;
   studentsList$:OutStudentList;
   displayedColumns: string[] = ['Student Name', 'Degree Name'];
   temp$:any;
@@ -18,15 +19,24 @@ export class ListStudentsComponent implements OnInit {
 
   ngOnInit(): void {
     this.lecturerService.getListOfStudents(this.lecturerId).subscribe(response =>{
-      this.temp$=JSON.stringify(response);
-      this.studentsList$=JSON.parse(this.temp$);
+      this.studentsList$=JSON.parse(JSON.stringify(response));
     },
     error => {
       console.log(error);
     });
   }
 
-  @Input("lecturerId") lecturerId :  String;
+  update(){
+    this.lecturerService.getListOfStudents(this.lecturerId).subscribe(response =>{
+      this.studentsList$=JSON.parse(JSON.stringify(response));
+    },
+    error => {
+      console.log(error);
+    });
+  }
+  
+
+  
  
 }
 

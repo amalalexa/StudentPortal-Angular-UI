@@ -11,6 +11,9 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { ListDegreeComponent } from './lecturer/list-degree/list-degree.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { StudentFormComponent } from './lecturer/student-form/student-form.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { SuccessComponent } from './lecturer/common/success/success.component';
 
 
 @NgModule({
@@ -19,7 +22,8 @@ import { StudentFormComponent } from './lecturer/student-form/student-form.compo
     LecturerComponent,
     ListStudentsComponent,
     ListDegreeComponent,
-    StudentFormComponent
+    StudentFormComponent,
+    SuccessComponent
   ],
   imports: [
     BrowserModule,
@@ -29,7 +33,7 @@ import { StudentFormComponent } from './lecturer/student-form/student-form.compo
     HttpClientModule,
     NgbModule
   ],
-  providers: [LecturerService],
+  providers: [LecturerService,MatDatepickerModule,{ provide: MAT_DIALOG_DATA, useValue: {} },{ provide: MatDialogRef, useValue: {} }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

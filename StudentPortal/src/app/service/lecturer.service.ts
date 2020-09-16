@@ -1,3 +1,4 @@
+import { InputStudentDetails } from './../view/input-student-details';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -32,5 +33,9 @@ export class LecturerService {
 
   }
 
+  saveStudentDetails(student:InputStudentDetails){
+    console.log(student);
+    return this.http.post(environment.apiUrl+"/lecturer/savestudent",student,{ responseType: 'text' });
+  }
 
 }

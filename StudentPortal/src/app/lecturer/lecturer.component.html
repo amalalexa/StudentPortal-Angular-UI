@@ -4,6 +4,7 @@
 
 <div class="row center">
     <mat-accordion>
+
         <mat-expansion-panel>
           <mat-expansion-panel-header>
             <mat-panel-title>
@@ -15,6 +16,9 @@
           </mat-expansion-panel-header>
           <list-students [lecturerId]="lecturerId"></list-students>
         </mat-expansion-panel>
+
+
+
         <mat-expansion-panel >
           <mat-expansion-panel-header>
             <mat-panel-title>
@@ -26,10 +30,17 @@
           </mat-expansion-panel-header>
           <list-degree  [lecturerId]="lecturerId"></list-degree>
         </mat-expansion-panel>
+
+
       </mat-accordion> 
       
       
       <button mat-raised-button color="primary" (click)="openStudentForm()">Add Student</button>
+
+      <div *ngIf="showMessage!=''" (show)="clear()">
+        {{ showMessage }}
+      </div>
+      
 </div>
 
 

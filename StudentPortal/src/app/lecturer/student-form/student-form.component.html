@@ -1,1 +1,49 @@
+<mat-dialog-content class="mat-typography">
+    <div class="heading">Student Details Form</div>
+    <form [formGroup]="form">
+        <mat-form-field>
+            <mat-label>Forename(s)</mat-label>
+            <input formControlName="forename" matInput>
+        </mat-form-field>
+        <div *ngIf="forename.touched && forename.invalid">
+            <div *ngIf="forename.errors.required">Forename(s) required !!!</div>
+            <div *ngIf="forename.errors.forenameValidation">Forename(s) can only contain alphabets !!!</div>
+        </div><br/>
+        <mat-form-field>
+            <mat-label>Surname</mat-label>
+            <input formControlName="surname" matInput>
+        </mat-form-field>
+        <div *ngIf="surname.touched && surname.invalid">
+            <div *ngIf="surname.errors.required">Surname required !!!</div>
+            <div *ngIf="surname.errors.surnameValidation">Surname can only contain alphabets !!!</div>
+        </div><br/>
+        <mat-form-field>
+            <mat-label>Email Id</mat-label>
+            <input formControlName="emailId" matInput>
+        </mat-form-field>
+        <div *ngIf="email.touched && email.invalid">
+            <div *ngIf="email.errors.required">E-mail required !!!</div>
+            <div *ngIf="email.errors.pattern">Not a valid e-mail !!!</div>
+        </div><br/>
 
+        <mat-form-field appearance="fill">
+            <mat-label>Date Of Birth</mat-label>
+            <input matInput formControlName="dateOfBirth" [matDatepicker]="picker">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <div *ngIf="dateOfBirth.touched && dateOfBirth.invalid">Date Of Birth required !!!</div><br/>
+
+        <mat-form-field>
+            <mat-label>Degree</mat-label>
+            <mat-select formControlName="degreeId">
+                <mat-option *ngFor="let val of data.degreeList" value="{{val.degreeId}}">{{ val.degreeName }}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <div *ngIf="degreeId.touched && degreeId.invalid">Degree required !!!</div><br/>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-button [mat-dialog-close]="true" cdkFocusInitial (click)="saveStudentDetails(form)">Save</button>
+</mat-dialog-actions>
