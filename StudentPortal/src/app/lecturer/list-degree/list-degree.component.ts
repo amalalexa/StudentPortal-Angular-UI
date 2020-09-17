@@ -1,7 +1,12 @@
 import { OutputCourseList } from './../../view/OutputCourseList';
 import { OutputDegreeLists } from './../../view/OutputDegreeLists';
 import { LecturerService } from './../../service/lecturer.service';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { StudentFormComponent } from '../student-form/student-form.component';
+import { SuccessComponent } from '../common/success/success.component';
+import { ListStudentsComponent } from '../list-students/list-students.component';
+import { LecturerComponent } from '../lecturer.component';
 
 @Component({
   selector: 'list-degree',
@@ -12,20 +17,20 @@ export class ListDegreeComponent implements OnInit {
 
   @Input("lecturerId") lecturerId:String;
 
-  temp:any;
   degreeLists$:OutputDegreeLists;
+  degree:OutputDegreeLists = new OutputDegreeLists();
   courseList$:OutputCourseList;
-  displayedColumns: string[] = ['Degree Name', 'Degree Duration(Years)','Courses'];
+  displayedColumns: string[] = ['Degree Name', 'Degree Duration(Years)', 'Number of Students','Courses', 'Add Student'];
   displayedInnerColumns: string[] = ['Course Name','Course Duration(Months)'];
-  constructor(private lecturerService:LecturerService) { }
+  constructor(private lecturerService:LecturerService, private dialog:MatDialog, private lecturerComponent:LecturerComponent) { }
+  
 
   ngOnInit(): void {
 
     this.lecturerService.getListOfDegrees(this.lecturerId)
                         .subscribe(response=>{
 
-                          this.temp=JSON.stringify(response);
-                          this.degreeLists$=JSON.parse(this.temp);
+                          this.degreeLists$=JSON.parse(JSON.stringify(response));
 
                         },
                         error=>{
@@ -43,8 +48,32 @@ export class ListDegreeComponent implements OnInit {
                         error=>{
                           console.log(error);
                         });
-  }
+    }
 
+    openStudentForm(degreeId,degreeName){
+      this.degree.degreeName = degreeName;
+      this.degree.degreeId = degreeId;
+      const dialogRef = this.dialog.open(StudentFormComponent,{
+        data: {
+          degreeList : [JSON.parse(JSON.stringify(this.degree))]
+        }
+      });
+      
+      const subscribeDialog= dialogRef.componentInstance.change.subscribe((data)=>{
+        this.dialog.open(SuccessComponent,{
+          data: {
+            message: "Student Saved"
+          }
+        });
+        this.lecturerComponent.update();
+        subscribeDialog.unsubscribe();
+      });
+
+      dialogRef.afterClosed().subscribe(result=>{
+        console.log("The form is closed !!!");
+      });
+      
+    }
   
 
 

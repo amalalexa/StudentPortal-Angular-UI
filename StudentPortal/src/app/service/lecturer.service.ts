@@ -9,9 +9,9 @@ export class LecturerService {
 
   constructor(private http:HttpClient) { }
 
-  getListOfStudents(lecturerId:String){
+  getListOfStudents(lecturerId:String,degreeId:String){
 
-    let headers = new HttpHeaders().set("lecturerId",lecturerId as string);
+    let headers = new HttpHeaders().set("lecturerId",lecturerId as string).set("degreeId",degreeId as string);
 
     return this.http.get(environment.apiUrl+"/lecturer/students", {headers:headers});
 
@@ -29,13 +29,19 @@ export class LecturerService {
 
     let headers = new HttpHeaders().set("degreeId",degreeId as string);
 
-    return this.http.get(environment.apiUrl+"/lecturer/degree/courses", {headers:headers});
+    return this.http.get(environment.apiUrl+"/lecturer/degree/courses", {headers:headers, responseType: 'text' });
 
   }
 
   saveStudentDetails(student:InputStudentDetails){
-    console.log(student);
     return this.http.post(environment.apiUrl+"/lecturer/savestudent",student,{ responseType: 'text' });
+  }
+
+  removeStudent(studentId:String){
+
+    let headers = new HttpHeaders().set("studentId",studentId as string);
+
+    return this.http.delete(environment.apiUrl+"/lecturer/removestudent",{headers:headers, responseType: 'text' });
   }
 
 }

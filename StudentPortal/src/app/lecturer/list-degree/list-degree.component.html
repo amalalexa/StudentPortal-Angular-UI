@@ -10,6 +10,11 @@
       <td style="text-align:center" mat-cell *matCellDef="let element">{{ element.degreeDurationInYears }}</td>
     </ng-container>
 
+    <ng-container matColumnDef="Number of Students">
+      <th style="text-align:center" mat-header-cell *matHeaderCellDef> Number of Students </th>
+      <td style="text-align:center" mat-cell *matCellDef="let element">{{ element.numberOfStudents }}</td>
+    </ng-container>
+
     <ng-container matColumnDef="Courses">
       <th style="text-align:center" mat-header-cell *matHeaderCellDef> Courses </th>
       <td mat-cell *matCellDef="let element">
@@ -30,6 +35,14 @@
               <tr mat-row class="pre" *matRowDef="let row; columns: displayedInnerColumns;"></tr>
             </table>
           </div>  
+      </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="Add Student">
+      <th  mat-header-cell *matHeaderCellDef> Add Student </th>
+      <td mat-cell *matCellDef="let element">
+          <button style="text-align:center" mat-raised-button color="primary" (click)="openStudentForm(element.degreeId,element.degreeName)">Add</button>
       </td>
     </ng-container>
 

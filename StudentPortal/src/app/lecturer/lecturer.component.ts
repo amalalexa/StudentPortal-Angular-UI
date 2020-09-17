@@ -1,5 +1,5 @@
+import { ListDegreeComponent } from './list-degree/list-degree.component';
 import { MatDialog } from '@angular/material/dialog';
-import { ListStudentsComponent } from './list-students/list-students.component';
 import { Component,  OnInit, ViewChild } from '@angular/core';
 import { LecturerService } from '../service/lecturer.service';
 import { StudentFormComponent } from './student-form/student-form.component';
@@ -16,13 +16,11 @@ export class LecturerComponent implements OnInit {
   lecturerId:String = "L-1";
   degreeList$:String[]=[];
   showMessage:String="";
-  private listStudentComponent:ListStudentsComponent;
-  @ViewChild(ListStudentsComponent, { static: false }) childC: ListStudentsComponent;
+  @ViewChild(ListDegreeComponent, { static: false }) childC: ListDegreeComponent;
 
   constructor(private lecturerService:LecturerService, private dialog:MatDialog) { }
 
   ngOnInit(): void {
-    this.listStudentComponent=new ListStudentsComponent(this.lecturerService);
     this.lecturerService.getListOfDegrees(this.lecturerId)
                         .subscribe(response=>{
                                     this.degreeList$=JSON.parse(JSON.stringify(response));
@@ -38,8 +36,11 @@ export class LecturerComponent implements OnInit {
           });
           
           const subscribeDialog= dialogRef.componentInstance.change.subscribe((data)=>{
-            this.dialog.open(SuccessComponent);
-            this.childC.update();
+            this.dialog.open(SuccessComponent,{
+              data: {
+                message: "Student Saved"
+              }
+            });
             subscribeDialog.unsubscribe();
           });
 
@@ -48,11 +49,8 @@ export class LecturerComponent implements OnInit {
           });
 
     }
-    
-    clear(){
-      this.showMessage="";
-    }
-    ngChanges(){
-      this.showMessage="";
+
+    update(){
+        this.childC.ngOnInit();
     }
 }
